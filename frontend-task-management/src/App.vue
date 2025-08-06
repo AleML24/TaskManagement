@@ -1,11 +1,21 @@
-<script setup></script>
+<script setup>
+import TaskList from './components/TaskList.vue';
+import NotificationToast from './components/NotificationToast.vue';
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="main">
+    <task-list />
+    <notification-toast></notification-toast>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  width: 100dvw;
+  height: 100dvh;
+}
+</style>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Keyword;
 use App\Utils\ResponseFormat;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
 class KeywordController extends Controller
@@ -14,8 +15,8 @@ class KeywordController extends Controller
     public function index()
     {
         try {
-            $keywords = Keyword::all();
-            return response()->json($keywords);
+            $keywords = Keyword::orderBy('name')->get();
+            return ResponseFormat::response(200, 'Keywords retrieved successfully', $keywords);
         } catch (\Exception $e) {
             return ResponseFormat::exceptionResponse($e);
         }

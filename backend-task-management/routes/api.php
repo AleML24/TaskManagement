@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index']);
 Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'store']);
-Route::patch('/tasks/{task}/toogleStatus', [\App\Http\Controllers\TaskController::class, 'toggleStatus']);
+Route::patch('/tasks/{task}/toggleStatus', [\App\Http\Controllers\TaskController::class, 'toggle']);
 Route::put('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update']);
 Route::delete('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'destroy']);
 

@@ -34,12 +34,12 @@ class TaskController extends Controller
                 });
             }
 
-            if (isset($validated['is_done'])) {
+            if (isset($validated['is_done']) && $validated['is_done'] != -1) {
                 $query->where('is_done', $validated['is_done']);
             }
 
             $tasks = $query->get();
-            return response()->json($tasks);
+            return ResponseFormat::response(200, null, $tasks);
         } catch (\Exception $e) {
             return ResponseFormat::exceptionResponse($e);
         }
@@ -79,7 +79,7 @@ class TaskController extends Controller
      * Change the status of a task.
      * This method toggles the 'is_done' status of a task.
      */
-    public function toggleStatus(Task $task)
+    public function toggle(Task $task)
     {
         try {
             $task->is_done = !$task->is_done;
@@ -97,14 +97,24 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         try {
+            DB::beginTransaction();
             $validatedData = $request->validate([
                 'title' => 'sometimes|required|string|max:255',
                 'is_done' => 'sometimes|boolean',
+                'keyword_ids' => 'array',
+                'keyword_ids.*' => 'integer|exists:keywords,id',
             ]);
 
             $task->update($validatedData);
+
+            if (!empty($validatedData['keyword_ids'])) {
+                $task->keywords()->sync($validatedData['keyword_ids']);
+            }
+
+            DB::commit();
             return ResponseFormat::response(200, 'Task updated successfully', $task);
         } catch (\Exception $e) {
+            DB::rollBack();
             return ResponseFormat::exceptionResponse($e);
         }
     }
