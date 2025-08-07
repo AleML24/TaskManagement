@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Task::factory()->count(8)->create();
-
+        Task::factory(10)->create();
+        Keyword::factory(5)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(KeywordSeeder::class);
+        // $this->call(KeywordSeeder::class);
     }
 }
