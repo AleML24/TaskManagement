@@ -2,6 +2,11 @@
 
 Sistema de gestión de tareas con frontend y backend.
 
+## Demo en línea
+
+Para ver una demo responsive y funcional en línea , puedes acceder a:  
+https://frontend-task-management-ten.vercel.app/
+
 ## Estructura del Proyecto
 
 - `backend-task-management/`: API RESTful construida con Laravel (PHP).
