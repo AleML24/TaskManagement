@@ -11,7 +11,7 @@ https://frontend-task-management-ten.vercel.app/
 ## Estructura del Proyecto
 
 - `backend-task-management/`: API RESTful construida con Laravel (PHP).
-- `frontend-task-management/`: Interfaz de usuario construida con (especifica framework: React, Vue, Angular, etc.).
+- `frontend-task-management/`: Interfaz de usuario construida con (Vue3 y Bootstrap).
 - `images/`: Capturas de pantalla de elementos principales en la interfaz
 
 ## Requisitos
