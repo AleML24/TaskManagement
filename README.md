@@ -67,13 +67,6 @@ https://frontend-task-management-ten.vercel.app/
 - Accede al frontend en `http://localhost:3000` (o el puerto configurado).
 - El backend estará disponible en `http://localhost:8000`.
 
-## Endpoints principales (Backend)
-
-- `GET /api/keywords`: Listar palabras clave
-- `POST /api/keywords`: Crear palabra clave
-- `PUT /api/keywords/{id}`: Actualizar palabra clave
-- `DELETE /api/keywords/{id}`: Eliminar palabra clave
-
 ## Documentación
 
 - Importa el archivo `postman_keywords_collection.json` en Postman para probar los endpoints del backend.
