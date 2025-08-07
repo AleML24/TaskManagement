@@ -69,7 +69,7 @@ https://frontend-task-management-ten.vercel.app/
 
 ## Documentación
 
-- Importa el archivo `postman_keywords_collection.json` en Postman para probar los endpoints del backend.
+- Importa el archivo `Task Managment.postman_collection.json` en Postman para probar los endpoints del backend.
 
 ## Tests automatizados
 
