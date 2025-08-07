@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "09cbe32d-7e5f-496f-95a2-bb9418da989a",
+		"name": "Task Managment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47367034"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Index Tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Dai",
+									"disabled": true
+								},
+								{
+									"key": "keyword_ids[]",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "is_done",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Listar las tareas definidas. Filtrado por:\n\n\"title\" -> Buscar que el tarea que contenga la cadena o subcadena\n\n\"keywords_ids\" -> Arreglo de ids de keywords para filtrar tareas por keywords asociadas\n\n\"is_done\" -> Listar tareas por estado"
+					},
+					"response": []
+				},
+				{
+					"name": "Store Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Crear controlador para Keywords\",\r\n    \"keyword_ids\": [13,6,7]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tasks"
+							]
+						},
+						"description": "Crear una nueva tarea\n\n\"title\" -> titulo de la tarea\n\n\"is_done\" -> estado de la taea (default = false)\n\n\"keyword_ids\" -> arreglo de ids de keywords asociadas a la tarea"
+					},
+					"response": []
+				},
+				{
+					"name": "ToggleStatus Task",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tasks/2/toogleStatus",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tasks",
+								"2",
+								"toogleStatus"
+							]
+						},
+						"description": "Cambiar el estado actual de la tarea negandolo"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tasks/2?title=Daily",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tasks",
+								"2"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Daily"
+								}
+							]
+						},
+						"description": "Actualizar los campos 'title' e 'is_done' de la tarea"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tasks/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tasks",
+								"5"
+							]
+						},
+						"description": "eliminar la tarea"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints sobre las tareas"
+		},
+		{
+			"name": "Keywords",
+			"item": [
+				{
+					"name": "Index Keywords",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>ID</th>\r",
+									"        <th>Name</th>\r",
+									"        <th>Created At</th>\r",
+									"        <th>Updated At</th>\r",
+									"    </tr>\r",
+									"    \r",
+									"    {{#each response}}\r",
+									"        <tr>\r",
+									"            <td>{{id}}</td>\r",
+									"            <td>{{name}}</td>\r",
+									"            <td>{{created_at}}</td>\r",
+									"            <td>{{updated_at}}</td>\r",
+									"        </tr>\r",
+									"    {{/each}}\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return {response: pm.response.json()}\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/keywords",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"keywords"
+							]
+						},
+						"description": "Obtener listado de keywords"
+					},
+					"response": []
+				},
+				{
+					"name": "Store Keyword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/keywords?name=Maxima Prioridad",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"keywords"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Maxima Prioridad"
+								}
+							]
+						},
+						"description": "Crear una keyword:\n\n'name' -> keyword"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Keyword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/keywords/3?name=Cambios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"keywords",
+								"3"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Cambios"
+								}
+							]
+						},
+						"description": "actualizar keyword:\n\n'name' -> keyword"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Keyword",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/keywords/18",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"keywords",
+								"18"
+							]
+						},
+						"description": "eliminar keyword"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints sobre las keywords"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		}
+	]
+}
